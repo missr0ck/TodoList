@@ -1,0 +1,31 @@
+ <div class="input-group "@fade>
+    <div class="remove-item" (click)="todoService.deleteTodo(todo.id)">
+        <button class="unit" type="button"><i class="times circle outline icon"></i></button>
+      </div>
+
+
+      <div class="edit-item" (click)="todoService.editTodo(todo)">
+        <button class="unit" type="button"><i class="edit outline icon"></i></button>
+      </div>
+
+      <div class="ui checked checkbox  ">
+        <input type="checkbox" checked="" [(ngModel)]="todo.completed" (change)="todoService.doneEdit(todo)">
+
+        <label *ngIf="!todo.editing ; else editingTodo"
+        [ngClass]="{ 'completed' : todo.completed }"
+          (dblclick)="todoService.editTodo(todo)"> {{todo.title}} </label>
+
+          <ng-template #editingTodo>
+          <span class="todo-edit">
+            <input type="text"
+             class="to-do-item-edit"
+            [(ngModel)]="todo.title"
+            (blur)="todoService.doneEdit(todo)"
+              (keyup.esc)="todoService.cancelEdit(todo)"
+               autofocus />
+          </span>
+
+        </ng-template>
+      </div>
+
+    </div>

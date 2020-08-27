@@ -1,0 +1,49 @@
+|<section>
+  <div class="pages">
+    <div class="segment">
+      <h1>To Do List</h1>
+      
+      <h6>Powered By M.saket</h6>
+    </div>
+
+    <label>
+      <input type="text" placeholder=" Insert new ToDo" [(ngModel)]="todoTitle" (click)="addToList()" />
+    </label>
+
+    <app-todo-items 
+     *ngFor="let todo of todoService.todoFiltered()" 
+     [todo]="todo" 
+  
+       ></app-todo-items>
+
+
+
+    <div class="wait-container row">
+
+      <div class="col">
+        <div class="ui slider checkbox ">
+          <input type="checkbox" name="newsletter" (change)="todoService.checkAllTodos()" [(ngModel)]="!todoService.anyRemainingModel">
+          <label>Checked All</label>
+        </div>
+      </div>
+
+      <div class="col">
+        <div>*{{todoService.remaining()}}* items </div>
+      </div>
+
+    </div>
+    
+    <div class="wait-container row ">
+      <div class="col">
+        <button  [ngClass]="{'active':todoService.filter ==='all'}" (click)="todoService.filter = 'all'">All</button>
+        <button   [ngClass]="{'active':todoService.filter ==='active'}" (click)="todoService.filter = 'active'">Active</button>
+        <button   [ngClass]="{'active':todoService.filter ==='completed'}" (click)="todoService.filter = 'completed'">Completed</button>
+      </div>
+      <div class="col">
+        <div *ngIf="todoService.atLeastOneCompleted()">
+          <button    (click)="todoService.clearCompleted()">Clear Completed</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
